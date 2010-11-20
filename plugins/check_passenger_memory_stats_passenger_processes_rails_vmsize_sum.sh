@@ -14,14 +14,33 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
-#   Author: Joel Parker Henderson (http://sixarm.com)
+#   Author: Joel Parker Henderson (joel@sixarm.com, http://sixarm.com)
+#   Updated: 2010-11-19
 #
 #   This program is based on code from check_nginx.sh
 #   created by Mike Adolphs (http://www.matejunkie.com/)
+#
+#   We use this script to do Nagios monitoring on our web servers
+#   that are running Ruby On Rails, Apache and Phusion Passenger.
+# 
+#   For more info on Passenger & Nagios:
+#   Phusion Passenger: http://phusion.nl
+#   Nagios monitoring: http://www.nagios.org   
+#   Nagios graph tool: http://nagiosgraph.sourceforge.net/
+#
+#   We use this script for gathering memory stats info which we
+#   display using Nagios Graph overlaid with other Nagios stats,
+#   so this script always outputs "OK" rather than any alerts.
+#
+#   If you want to use the critical alert features of Nagios, 
+#   then you can modify this script to return different output
+#   depending on whatever values that you feel are best for
+#   your own server, available RAM, and Passenger settings.
+#   If you need help with this, feel free to contact me.
 
 PROGNAME=`basename $0`
-VERSION="Version 1.0.0,"
-AUTHOR="2009, Joel Parker Henderson (http://sixarm.com/)"
+VERSION="Version 1.2.0,"
+AUTHOR="2010, Joel Parker Henderson (joel@sixarm.com, http://sixarm.com/)"
 
 ST_OK=0
 ST_WR=1

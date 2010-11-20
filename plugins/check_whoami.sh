@@ -14,14 +14,15 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
-#   Author: Joel Parker Henderson (http://sixarm.com)
+#   Author: Joel Parker Henderson (joel@sixarm.com, http://sixarm.com)
+#   Updated: 2010-11-19
 #
 #   This program is based on code from check_nginx.sh
 #   created by Mike Adolphs (http://www.matejunkie.com/)
 
 PROGNAME=`basename $0`
-VERSION="Version 1.0.0,"
-AUTHOR="2009, Joel Parker Henderson (http://sixarm.com/)"
+VERSION="Version 1.0.2,"
+AUTHOR="2010, Joel Parker Henderson (joel@sixarm.com, http://sixarm.com/)"
 
 ST_OK=0
 ST_WR=1
