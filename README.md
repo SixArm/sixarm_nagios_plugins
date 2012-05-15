@@ -12,7 +12,11 @@ This repo has our custom-built Nagios plugins:
   * check_passenger_memory_stats_passenger_processes_total_private_dirty
   * check_whoami
 
-Each has a plugin script (in the <code>plugins</code> directory) and matching conf files (in the <code>plugins-conf</code> directory) for command cfg and service cfg.
+Each plugin has three pieces:
+
+  * a plugin script (in the <code>plugins</code> directory)
+  * a command cfg  (in the <code>plugins-conf</code> directory)
+  * a service cfg  (in the <code>plugins-conf</code> directory)
 
 For more info on Passenger and Nagios:
 
