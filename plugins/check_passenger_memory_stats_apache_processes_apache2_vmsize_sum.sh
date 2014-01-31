@@ -79,9 +79,15 @@ while test -n "$1"; do
     shift
 done
 
+if [ -f /etc/redhat-release ];
+then
+    APACHE_NAME=httpd
+else
+    APACHE_NAME=apache2
+fi
 
 get_vals() {
-   passenger_memory_stats_apache_processes_apache2_vmsize_sum=`sudo passenger-memory-stats | sed -n '/^-* Apache processes -*$/,/^$/p' | grep "/apache2 " | awk '{ sum += $3 }; END { print sum }'`
+   passenger_memory_stats_apache_processes_apache2_vmsize_sum=`sudo passenger-memory-stats | sed -n '/^-* Apache processes -*$/,/^$/p' | grep "/$APACHE_NAME" | awk '{ sum += $3 }; END { print sum }'`
 }
 
 do_output() {

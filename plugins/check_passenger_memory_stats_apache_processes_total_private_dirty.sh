@@ -79,7 +79,6 @@ while test -n "$1"; do
     shift
 done
 
-
 get_vals() {
    passenger_memory_stats_apache_processes_total_private_dirty=`sudo passenger-memory-stats | sed -n '/^-* Apache processes -*$/,/^$/p' | grep "Total private dirty" | sed 's/.*: //; s/ //;'`
 }

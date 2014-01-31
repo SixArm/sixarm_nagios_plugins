@@ -81,7 +81,10 @@ done
 
 
 get_vals() {
-   passenger_memory_stats_passenger_processes_rails_vmsize_sum=`sudo passenger-memory-stats | sed -n '/^-* Passenger processes -*$/,/^$/p' | grep "Rails: " | awk '{ sum += $2 }; END { print sum }'`
+    passenger_memory_stats_passenger_processes_rails_vmsize_sum=`sudo passenger-memory-stats | sed -n '/^-* Passenger processes -*$/,/^$/p' | grep "Rails: " | awk '{ sum += $2 }; END { print sum }'`
+    if [ -z "$passenger_memory_stats_passenger_processes_rails_vmsize_sum" ]; then
+        passenger_memory_stats_passenger_processes_rails_vmsize_sum=`sudo passenger-memory-stats | sed -n '/^-* Passenger processes -*$/,/^$/p' | grep "RackApp: " | awk '{ sum += $2 }; END { print sum }'`
+    fi
 }
 
 do_output() {
