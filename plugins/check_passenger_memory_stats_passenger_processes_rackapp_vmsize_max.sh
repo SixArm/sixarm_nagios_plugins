@@ -81,18 +81,18 @@ done
 
 
 get_vals() {
-    passenger_memory_stats_passenger_processes_rails_vmsize_max=`sudo passenger-memory-stats | sed -n '/^-* Passenger processes -*$/,/^$/p' | grep "RackApp: " | awk '$2>m{m=$2}END{print m}'`
-    if [ -z "$passenger_memory_stats_passenger_processes_rails_vmsize_max" ]; then
-        passenger_memory_stats_passenger_processes_rails_vmsize_max=0
+    passenger_memory_stats_passenger_processes_rackapp_vmsize_max=`sudo passenger-memory-stats | sed -n '/^-* Passenger processes -*$/,/^$/p' | grep "RackApp: " | awk '$2>m{m=$2}END{print m}'`
+    if [ -z "$passenger_memory_stats_passenger_processes_rackapp_vmsize_max" ]; then
+        passenger_memory_stats_passenger_processes_rackapp_vmsize_max=0
     fi
 }
 
 do_output() {
-    output="$passenger_memory_stats_passenger_processes_rails_vmsize_max passenger memory stats passenger processes rails vmsize max"
+    output="$passenger_memory_stats_passenger_processes_rackapp_vmsize_max passenger memory stats passenger processes rackapp vmsize max"
 }
 
 do_perfdata() {
-    perfdata="'pms_p_vm_max'=$passenger_memory_stats_passenger_processes_rails_vmsize_max"
+    perfdata="'pms_p_vm_max'=$passenger_memory_stats_passenger_processes_rackapp_vmsize_max"
 }
 
 # Here we go!

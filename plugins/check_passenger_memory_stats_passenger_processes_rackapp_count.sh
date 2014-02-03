@@ -81,15 +81,18 @@ done
 
 
 get_vals() {
-    passenger_memory_stats_passenger_processes_rails_count=`sudo passenger-memory-stats | sed -n '/^-* Passenger processes -*$/,/^$/p' | grep "RackApp: " | wc -l`
+    passenger_memory_stats_passenger_processes_rackapp_count=`sudo passenger-memory-stats | sed -n '/^-* Passenger processes -*$/,/^$/p' | grep "RackApp: " | wc -l`
+    if [ -z "$passenger_memory_stats_passenger_processes_rackapp_count" ]; then
+        passenger_memory_stats_passenger_processes_rackapp_count=0
+    fi
 }
 
 do_output() {
-    output="$passenger_memory_stats_passenger_processes_rails_count passenger memory stats passenger processes rails count"
+    output="$passenger_memory_stats_passenger_processes_rackapp_count passenger memory stats passenger processes rackapp count"
 }
 
 do_perfdata() {
-    perfdata="'pms_p_count'=$passenger_memory_stats_passenger_processes_rails_count"
+    perfdata="'pms_p_count'=$passenger_memory_stats_passenger_processes_rackapp_count"
 }
 
 # Here we go!
