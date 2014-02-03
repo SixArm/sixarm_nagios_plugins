@@ -55,7 +55,7 @@ print_help() {
     print_version $PROGNAME $VERSION
     echo ""
     echo "$PROGNAME is a Nagios plugin to check passenger memory stats,"
-    echo "specifically for Passenger processes Rails VMSize sum."
+    echo "specifically for Passenger processes RackApp VMSize max."
     echo ""
     exit $ST_UK
 }
@@ -81,18 +81,18 @@ done
 
 
 get_vals() {
-    passenger_memory_stats_passenger_processes_rails_vmsize_sum=`sudo passenger-memory-stats | sed -n '/^-* Passenger processes -*$/,/^$/p' | grep "Rails: " | awk '{ sum += $2 }; END { print sum }'`
-    if [ -z "$passenger_memory_stats_passenger_processes_rails_vmsize_sum" ]; then
-        passenger_memory_stats_passenger_processes_rails_vmsize_sum=0
+    passenger_memory_stats_passenger_processes_rails_vmsize_max=`sudo passenger-memory-stats | sed -n '/^-* Passenger processes -*$/,/^$/p' | grep "RackApp: " | awk '$2>m{m=$2}END{print m}'`
+    if [ -z "$passenger_memory_stats_passenger_processes_rails_vmsize_max" ]; then
+        passenger_memory_stats_passenger_processes_rails_vmsize_max=0
     fi
 }
 
 do_output() {
-    output="$passenger_memory_stats_passenger_processes_rails_vmsize_sum passenger memory stats passenger processes rails vmsize sum"
+    output="$passenger_memory_stats_passenger_processes_rails_vmsize_max passenger memory stats passenger processes rails vmsize max"
 }
 
 do_perfdata() {
-    perfdata="'pms_p_vm_sum'=$passenger_memory_stats_passenger_processes_rails_vmsize_sum"
+    perfdata="'pms_p_vm_max'=$passenger_memory_stats_passenger_processes_rails_vmsize_max"
 }
 
 # Here we go!
