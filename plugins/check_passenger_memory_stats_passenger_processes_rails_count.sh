@@ -81,7 +81,7 @@ done
 
 
 get_vals() {
-   passenger_memory_stats_passenger_processes_rails_count=`sudo passenger-memory-stats | sed -n '/^-* Passenger processes -*$/,/^$/p' | grep "Rails: " | wc -l`
+    passenger_memory_stats_passenger_processes_rails_count=`sudo passenger-memory-stats | sed -n '/^-* Passenger processes -*$/,/^$/p' | grep "Rails: " | wc -l`
 }
 
 do_output() {

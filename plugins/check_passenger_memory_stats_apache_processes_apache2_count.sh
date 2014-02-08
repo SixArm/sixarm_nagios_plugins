@@ -79,9 +79,16 @@ while test -n "$1"; do
     shift
 done
 
+if [ -f /etc/redhat-release ];
+then
+    APACHE_NAME=httpd
+else
+    APACHE_NAME=apache2
+fi
+
 
 get_vals() {
-   passenger_memory_stats_apache_processes_apache2_count=`sudo passenger-memory-stats | sed -n '/^-* Apache processes -*$/,/^$/p' | grep "/apache2 " | wc -l`
+   passenger_memory_stats_apache_processes_apache2_count=`sudo passenger-memory-stats | sed -n '/^-* Apache processes -*$/,/^$/p' | grep "/$APACHE_NAME" | wc -l`
 }
 
 do_output() {
