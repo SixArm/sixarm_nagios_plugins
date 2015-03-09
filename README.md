@@ -1,4 +1,4 @@
-# SixArm.com » Nagios » Plugins for monitoring servers
+# Nagios » Plugins for monitoring servers
 
 This repo has our custom-built Nagios plugins:
      	  
