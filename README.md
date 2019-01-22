@@ -18,8 +18,10 @@ Each plugin has three pieces:
   * a command cfg  (in the <code>plugins-conf</code> directory)
   * a service cfg  (in the <code>plugins-conf</code> directory)
 
-For more info on Passenger and Nagios:
+For more info on these areas:
 
+  * Ruby on Rails: https://rubyonrails.org/
+  * Apache HTTP Server: https://httpd.apache.org/
   * Phusion Passenger: http://phusion.nl
   * Nagios monitoring: http://www.nagios.org   
   * Nagios graph tool: http://nagiosgraph.sourceforge.net/

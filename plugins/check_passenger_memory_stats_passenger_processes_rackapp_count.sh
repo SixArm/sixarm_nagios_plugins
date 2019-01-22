@@ -1,45 +1,62 @@
 #!/bin/sh
 
-#   This program is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2 of the License, or
-#   (at your option) any later version.
+##
+# Nagios plugih to check passenger memory stats,
+# passenger processes rackapp count.
 #
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
+# We use this script to do Nagios monitoring on our web servers
+# that are running Ruby On Rails, Apache, and Phusion Passenger.
 #
-#   You should have received a copy of the GNU General Public License
-#   along with this program; if not, write to the Free Software
-#   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+# For more information on these:
 #
-#   Author: Joel Parker Henderson (joel@sixarm.com, http://sixarm.com)
-#   Updated: 2010-11-19
+#   * Ruby on Rails: https://rubyonrails.org/
+#   * Apache HTTP Server: https://httpd.apache.org/
+#   * Phusion Passenger: http://phusion.nl
+#   * Nagios monitoring: http://www.nagios.org
+#   * Nagios graph tool: http://nagiosgraph.sourceforge.net/
 #
-#   This program is based on code from check_nginx.sh
-#   created by Mike Adolphs (http://www.matejunkie.com/)
+# We use this script for gathering memory stats info which we
+# display using Nagios Graph overlaid with other Nagios stats,
+# so this script always outputs "OK" rather than any alerts.
 #
-#   We use this script to do Nagios monitoring on our web servers
-#   that are running Ruby On Rails, Apache and Phusion Passenger.
-# 
-#   For more info on Passenger & Nagios:
-#   Phusion Passenger: http://phusion.nl
-#   Nagios monitoring: http://www.nagios.org   
-#   Nagios graph tool: http://nagiosgraph.sourceforge.net/
+# If you want to use the critical alert features of Nagios,
+# then you can modify this script to return different output
+# depending on whatever values that you feel are best for
+# your own server, available RAM, and Passenger settings.
+# If you need help with this, feel free to contact me.
 #
-#   We use this script for gathering memory stats info which we
-#   display using Nagios Graph overlaid with other Nagios stats,
-#   so this script always outputs "OK" rather than any alerts.
 #
-#   If you want to use the critical alert features of Nagios, 
-#   then you can modify this script to return different output
-#   depending on whatever values that you feel are best for
-#   your own server, available RAM, and Passenger settings.
-#   If you need help with this, feel free to contact me.
+# ## Troubleshooting
+#
+# Ensure that you can run this manually:
+#
+#     sudo passenger-memory-stats |
+#     sed -n '/^-* Passenger processes -*$/,/^$/p' |
+#     grep "RackApp: " |
+#     wc -l
+#
+#
+# ## Thanks
+#
+#  This program is based on code from check_nginx.sh
+#  created by Mike Adolphs (http://www.matejunkie.com/)
+#
+#
+# ## Tracking
+#
+#   * Command: check_passenger_memory_stats_passenger_processes_rackapp_count
+#   * Website: https://sixarm.com/
+#   * Cloning: https://github.com/sixarm/sixarm_nagios_plugins
+#   * Version: 1.2.1
+#   * Created: 2010-10-16
+#   * Updated: 2019-01-22
+#   * License: GPL
+#   * Contact: Joel Parker Henderson (http://joelparkerhenderson.com)
+#   * Tracker: 04cae04bebe07aef90122779c83c6944
+##
 
 PROGNAME=`basename $0`
-VERSION="Version 1.2.0,"
+VERSION="Version 1.2.1,"
 AUTHOR="2010, Joel Parker Henderson (joel@sixarm.com, http://sixarm.com/)"
 
 ST_OK=0
@@ -102,4 +119,3 @@ do_perfdata
 
 echo "OK - ${output} | ${perfdata}"
 exit $ST_OK
-
