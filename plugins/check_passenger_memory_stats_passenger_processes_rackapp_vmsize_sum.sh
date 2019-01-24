@@ -124,6 +124,31 @@ do_perfdata() {
 }
 
 ##
+# Normalize the vals so they work with comparisons.
+#
+# This implementation expects an input string that is a number
+# and a unit such as "1.2K" for 1.2 kilo a.k.a. 1200 units.
+#
+# This function returns a normalized number.
+#
+# Example:
+#
+#    normalize_vals "1.2K"
+#    ->	1200
+#
+# This function	is provided as an example for you to use.
+# You can edit this code to use this function, and also edit
+# the function to use your own preferred number values.
+##
+
+normalize() {
+    number=${1%%[[:alpha:] ]*}
+    unit=${1##*[[:digit:]\. ]}
+    multiplier=$(eval echo '$'UNIT_$unit)
+    echo "x = $number * $multiplier; scale = 0; x / 1" | bc -l
+}
+
+##
 # Assess as Ok, Warning, Critical, or Unknown.
 #
 # This implementation always returns Ok.
