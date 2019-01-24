@@ -64,6 +64,17 @@ STATUS_CODE_WR=1
 STATUS_CODE_CR=2
 STATUS_CODE_UK=3
 
+eval "STATUS_ABBR_0=\"OK\""
+eval "STATUS_ABBR_1=\"WR\""
+eval "STATUS_ABBR_2=\"CR\""
+eval "STATUS_ABBR_3=\"UK\""
+
+eval "UNIT_=1"
+eval "UNIT_K=1000"
+eval "UNIT_M=1000000"
+eval "UNIT_G=1000000000"
+eval "UNIT_T=1000000000000"
+
 print_version() {
     echo "$VERSION $AUTHOR"
 }
@@ -116,10 +127,24 @@ do_perfdata() {
     perfdata="'pms_a_vm_max'=$passenger_memory_stats_apache_processes_apache2_vmsize_max"
 }
 
+##
+# Assess as Ok, Warning, Critical, or Unknown.
+#
+# This implementation always returns Ok.
+# Customize this implementation for your our goals.
+#
+# Return a status code, one of ST_OK, ST_WR, ST_CR, ST_UK.
+##
+
+assess() {
+    echo $STATUS_CODE_OK
+}
+
 # Here we go!
 get_vals
 do_output
 do_perfdata
 
-echo "OK - ${output} | ${perfdata}"
-exit $STATUS_CODE_OK
+status_code=$(assess)
+echo $(eval echo '$'STATUS_ABBR_$status_code) " - ${output} | ${perfdata}"
+exit $status_code
