@@ -42,22 +42,22 @@
 #   * Command: check_whoami
 #   * Website: https://sixarm.com/
 #   * Cloning: https://github.com/sixarm/sixarm_nagios_plugins
-#   * Version: 1.0.3
+#   * Version: 1.0.4
 #   * Created: 2010-10-16
-#   * Updated: 2019-01-22
+#   * Updated: 2019-01-24
 #   * License: GPL
 #   * Contact: Joel Parker Henderson (http://joelparkerhenderson.com)
 #   * Tracker: 3694eb4130f3dd3adc3b6c532c4ddc56
 ##
 
 PROGNAME=`basename $0`
-VERSION="Version 1.0.3,"
+VERSION="Version 1.0.4,"
 AUTHOR="2010, Joel Parker Henderson (joel@sixarm.com, http://sixarm.com/)"
 
-ST_OK=0
-ST_WR=1
-ST_CR=2
-ST_UK=3
+STATUS_CODE_OK=0
+STATUS_CODE_WR=1
+STATUS_CODE_CR=2
+STATUS_CODE_UK=3
 
 print_version() {
     echo "$VERSION $AUTHOR"
@@ -68,23 +68,23 @@ print_help() {
     echo ""
     echo "$PROGNAME is a Nagios plugin to check the 'whoami' command."
     echo ""
-    exit $ST_UK
+    exit $STATUS_CODE_UK
 }
 
 while test -n "$1"; do
     case "$1" in
         -help|-h)
             print_help
-            exit $ST_UK
+            exit $STATUS_CODE_UK
             ;;
         --version|-v)
             print_version $PROGNAME $VERSION
-            exit $ST_UK
+            exit $STATUS_CODE_UK
             ;;
         *)
             echo "Unknown argument: $1"
             print_help
-            exit $ST_UK
+            exit $STATUS_CODE_UK
             ;;
         esac
     shift
@@ -109,4 +109,4 @@ do_output
 do_perfdata
 
 echo "OK - ${output} | ${perfdata}"
-exit $ST_OK
+exit $STATUS_CODE_OK

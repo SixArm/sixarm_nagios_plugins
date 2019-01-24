@@ -44,25 +44,25 @@
 #
 # ## Tracking
 #
-#   * Command: 
+#   * Command: check_passenger_memory_stats_passenger_processes_total_private_dirty
 #   * Website: https://sixarm.com/
 #   * Cloning: https://github.com/sixarm/sixarm_nagios_plugins
-#   * Version: 1.3.1
+#   * Version: 1.3.2
 #   * Created: 2010-10-16
-#   * Updated: 2019-01-22
+#   * Updated: 2019-01-24
 #   * License: GPL
 #   * Contact: Joel Parker Henderson (http://joelparkerhenderson.com)
 #   * Tracker: 2367fd3b1f89601ada0d1092d2031090
 ##
 
 PROGNAME=`basename $0`
-VERSION="Version 1.3.1,"
+VERSION="Version 1.3.2,"
 AUTHOR="2010, Joel Parker Henderson (joel@sixarm.com, http://sixarm.com/)"
 
-ST_OK=0
-ST_WR=1
-ST_CR=2
-ST_UK=3
+STATUS_CODE_OK=0
+STATUS_CODE_WR=1
+STATUS_CODE_CR=2
+STATUS_CODE_UK=3
 
 print_version() {
     echo "$VERSION $AUTHOR"
@@ -74,23 +74,23 @@ print_help() {
     echo "$PROGNAME is a Nagios plugin to check passenger memory stats,"
     echo "specifically for passenger processes total private dirty."
     echo ""
-    exit $ST_UK
+    exit $STATUS_CODE_UK
 }
 
 while test -n "$1"; do
     case "$1" in
         -help|-h)
             print_help
-            exit $ST_UK
+            exit $STATUS_CODE_UK
             ;;
         --version|-v)
             print_version $PROGNAME $VERSION
-            exit $ST_UK
+            exit $STATUS_CODE_UK
             ;;
         *)
             echo "Unknown argument: $1"
             print_help
-            exit $ST_UK
+            exit $STATUS_CODE_UK
             ;;
         esac
     shift
@@ -115,4 +115,4 @@ do_output
 do_perfdata
 
 echo "OK - ${output} | ${perfdata}"
-exit $ST_OK
+exit $STATUS_CODE_OK
