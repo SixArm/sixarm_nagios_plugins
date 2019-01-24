@@ -133,11 +133,34 @@ do_perfdata() {
 # This implementation always returns Ok.
 # Customize this implementation for your our goals.
 #
-# Return a status code, one of ST_OK, ST_WR, ST_CR, ST_UK.
+# Return a status code.
 ##
 
-assess() {
+assess_via_always_ok() {
     echo $STATUS_CODE_OK
+}
+
+##
+# Assess as Ok, Warning, Critical, or Unknown.
+#
+# This implementation uses the approach of lesser is better,
+# i.e. a lower number is better than a higher number.
+#
+# This function	is provided as an example for you to use.
+# You can edit this code to use this function, and also edit
+# the function to use your own preferred number values.
+#
+# Return a status code.
+##
+
+assess_via_lesser_is_better() {
+   if [ "$1" -lt "1" ]; then
+      echo $STATUS_CODE_OK
+   elif [ "$1" -lt "2" ]; then
+      echo $STATUS_CODE_WR
+   else
+      echo $STATUS_CODE_CR
+   fi
 }
 
 # Here we go!
@@ -145,6 +168,6 @@ get_vals
 do_output
 do_perfdata
 
-status_code=$(assess)
+status_code=$(assess_via_always_ok)
 echo $(eval echo '$'STATUS_ABBR_$status_code) " - ${output} | ${perfdata}"
 exit $status_code
